@@ -8,6 +8,17 @@ use App\Models\Admin;
 
 class AdminController extends Controller
 {
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:apiAdmin');
+    }
+
     /**
      * Display a listing of the resource.
      *
