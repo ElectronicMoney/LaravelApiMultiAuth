@@ -17,5 +17,12 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/user/dashboard', 'HomeController@index')->name('user.dashboard');
-Route::get('/admin/dashboard', 'HomeAdminController@index')->name('admin.dashboard');
+Route::group(['prefix' => 'user'], function () {
+    Route::get('/dashboard', 'HomeController@index')->name('user.dashboard');
+});
+
+Route::group(['prefix' => 'admin'], function() {
+    Route::get('/login', 'Auth\AdminLoginController@showAdminLogin')->name('admin.login');
+    Route::post('/login', 'Auth\AdminLoginController@adminLogin')->name('admin.login.submit');
+    Route::get('/dashboard', 'HomeAdminController@index')->name('admin.dashboard');
+});
