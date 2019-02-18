@@ -19,6 +19,7 @@ Auth::routes();
 
 Route::group(['prefix' => 'user'], function () {
     Route::get('/dashboard', 'HomeController@index')->name('user.dashboard');
+    Route::post('/logout', 'Auth\LoginController@userLogout')->name('user.logout');
 });
 
 Route::group(['prefix' => 'admin'], function() {
