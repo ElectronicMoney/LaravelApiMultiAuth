@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
+use App\Http\Resources\Admin\AdminResource;
+use App\Http\Resources\Admin\AdminResourceCollection;
 
 class AdminController extends Controller
 {
@@ -26,17 +28,8 @@ class AdminController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $admins = Admin::paginate(5);
+        return AdminResourceCollection::collection($admins);
     }
 
     /**
@@ -58,19 +51,9 @@ class AdminController extends Controller
      */
     public function show(Admin $admin)
     {
-        //
+        return new AdminResource($admin);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Admin $admin)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.

@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Http\Resources\User\UserResource;
+use App\Http\Resources\Admin\AdminResource;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,14 +19,32 @@ use Illuminate\Http\Request;
  * ======================USER API====================
  * @return array
  */
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+    return new UserResource($request->user());
 });
+
 
 /**
  * ======================ADMIN API====================
  * @return array
  */
 Route::middleware('auth:apiAdmin')->get('/admin', function (Request $request) {
-    return $request->user();
+    return new UserResource($request->user());
+});
+
+
+/**
+ * ReviewCotroller
+ */
+Route::group(['prefix' => 'admin'], function () {
+
+    Route::apiResource('/manage/users', 'Api\User\UserController', [
+        'as' => 'admin'
+    ]);
+
+    Route::apiResource('/manage/admins', 'Api\Admin\AdminController', [
+        'as' => 'admin'
+    ]);
+
 });

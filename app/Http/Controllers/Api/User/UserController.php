@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Http\Resources\User\UserResource;
+use App\Http\Resources\User\UserResourceCollection;
 
 class UserController extends Controller
 {
@@ -16,7 +18,7 @@ class UserController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api');
+        $this->middleware('auth:apiAdmin');
     }
 
     /**
@@ -26,17 +28,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $users = User::paginate(10);
+        return UserResourceCollection::collection($users);
     }
 
     /**
@@ -56,20 +49,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return new UserResource($user);
     }
 
     /**
