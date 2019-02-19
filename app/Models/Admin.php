@@ -6,6 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Notifications\AdminResetPasswordNotification;
+use App\Models\AdminRole;
 
 class Admin extends Authenticatable
 {
@@ -19,7 +20,7 @@ class Admin extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'admin_role_id', 'name', 'email', 'password', 'ip_address'
     ];
 
     /**
@@ -41,4 +42,14 @@ class Admin extends Authenticatable
     {
         $this->notify(new AdminResetPasswordNotification($token));
     }
+
+    /**
+     * Admin belongs to  Admin Role
+     *
+     * @return void
+     */
+    public function adminRole() {
+        return $this->belongsTo(AdminRole::class);
+    }
+
 }
