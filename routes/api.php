@@ -13,6 +13,18 @@ use Illuminate\Http\Request;
 |
 */
 
+/**
+ * ======================USER API====================
+ * @return array
+ */
 Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
+});
+
+/**
+ * ======================ADMIN API====================
+ * @return array
+ */
+Route::middleware('auth:apiAdmin')->get('/admin', function (Request $request) {
     return $request->user();
 });

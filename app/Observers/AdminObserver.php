@@ -2,7 +2,7 @@
 
 namespace App\Observers;
 
-use App\Modela\Admin;
+use App\Models\Admin;
 
 class AdminObserver
 {
